@@ -28,7 +28,7 @@ public class TreeTest {
          *    |-firstLayerTextFile
          */
         tree.addNode(firstLayerTextFile);
-        Assert.assertEquals(firstLayerTextFile, tree.getRoot().getChild(firstLayerTextFile.getKey()));
+        Assert.assertEquals(firstLayerTextFile, tree.getRoot().getChild(firstLayerTextFile.getPath()));
 
         /*
          *  root
@@ -36,7 +36,7 @@ public class TreeTest {
          *    |-firstLayerDirectory
          */
         tree.addNode(firstLayerDirectory);
-        Assert.assertEquals(firstLayerDirectory, tree.getRoot().getChild(firstLayerDirectory.getKey()));
+        Assert.assertEquals(firstLayerDirectory, tree.getRoot().getChild(firstLayerDirectory.getPath()));
 
         /*
          *  root
@@ -45,7 +45,7 @@ public class TreeTest {
          *              |-secondLayerTextFile
          */
         tree.addNode(secondLayerTextFile);
-        Assert.assertEquals(secondLayerTextFile, firstLayerDirectory.getChild(secondLayerTextFile.getKey()));
+        Assert.assertEquals(secondLayerTextFile, firstLayerDirectory.getChild(secondLayerTextFile.getPath()));
 
         /*
          *  root
@@ -55,7 +55,7 @@ public class TreeTest {
          *              |-secondLayerDirectory
          */
         tree.addNode(secondLayerDirectory);
-        Assert.assertEquals(secondLayerDirectory, firstLayerDirectory.getChild(secondLayerDirectory.getKey()));
+        Assert.assertEquals(secondLayerDirectory, firstLayerDirectory.getChild(secondLayerDirectory.getPath()));
 
 
 

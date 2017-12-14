@@ -30,18 +30,6 @@ public interface NodeInterface {
 
     /**
      *
-     * @param iva_key the key the node later has
-     * @throws InvalidNodeKeyException key cant be negative
-     */
-    void setKey(int iva_key) throws InvalidNodeKeyException;
-
-    /**
-     * @return the key the node has
-     */
-    int getKey();
-
-    /**
-     *
      * @param iva_path the path where the file is stored
      * @throws InvalidPathException the path cant be empty
      */
@@ -71,14 +59,6 @@ public interface NodeInterface {
     NodeInterface getChild(String iva_path) throws NodeNotFoundException;
 
     /**
-     * Search a child with the provided key
-     * @param iva_key a child with this key
-     * @return the found child with this key.
-     * @throws NodeNotFoundException the current node has nod child with this key
-     */
-    NodeInterface getChild(int iva_key) throws NodeNotFoundException;
-
-    /**
      * @return all children of the current node
      */
     Collection<NodeInterface> getChildren();
@@ -92,11 +72,7 @@ public interface NodeInterface {
 
     void removeChild(String iva_path) throws NodeNotFoundException;
 
-    void removeChild(int iva_key) throws NodeNotFoundException;
-
     void removeChildren(Collection<String> ico_nodePaths) throws NodeNotFoundException;
-
-    void removeChildrenByKeys(Collection<Integer> ico_nodeKeys) throws NodeNotFoundException;
 
     void removeAllChildren();
 

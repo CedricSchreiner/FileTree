@@ -11,16 +11,13 @@ public class Tree implements TreeInterface {
 
     private static final String BASE_DIRECTORY = "C:\\\\Users\\\\Darth-Vader\\\\Documents\\\\Fileserver\\\\";
     private static final String GC_ROOT_PATH = "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root";
-    private static final int GC_ROOT_KEY = 0;
     private static final String GC_ROOT_NAME = "<ROOT>";
 
     private NodeInterface gob_root;
-    private int gva_nodeKey;
     private boolean gva_nodeNotFoundExceptionStatus;
 
     public Tree() {
-        this.gva_nodeKey = 1;
-        this.gob_root = new Node(GC_ROOT_KEY, GC_ROOT_NAME, GC_ROOT_PATH, false, 0);
+        this.gob_root = new Node(GC_ROOT_NAME, GC_ROOT_PATH, false, 0);
         this.gva_nodeNotFoundExceptionStatus = true;
     }
 
@@ -28,7 +25,6 @@ public class Tree implements TreeInterface {
     public void clear() {
         //this.gco_treeAsList.clear();
         this.gob_root.removeAllChildren();
-        this.gva_nodeKey = 1;
     }
 
     @Override
@@ -37,16 +33,13 @@ public class Tree implements TreeInterface {
         NodeInterface lob_parent;
         //---------------------------------------
 
-        searchTreeRecursive(gob_root,iob_node.getPath());
         NodeInterface node = searchNode(gob_root, iob_node.getPath(), 0);
 
         if (node != null) {
             System.out.println("Knoten schon vorhanden: " + iob_node.getPath());
         }
 
-        setNodeKey(iob_node);
-
-        lob_parent = addNodeRekursiv(gob_root, iob_node, 0);
+        lob_parent = addNode(gob_root, iob_node, 0);
 
         //set the parent of the new node
         iob_node.setParent(lob_parent);
@@ -63,11 +56,6 @@ public class Tree implements TreeInterface {
     }
 
     @Override
-    public NodeInterface getNode(int iva_key) throws NodeNotFoundException {
-        return null;
-    }
-
-    @Override
     public NodeInterface getNode(String iva_path) throws NodeNotFoundException {
         return null;
     }
@@ -80,11 +68,6 @@ public class Tree implements TreeInterface {
     @Override
     public Collection<NodeInterface> getRootSubNodes() {
         return this.gob_root.getChildren();
-    }
-
-    @Override
-    public Collection<NodeInterface> getNodesByKey(Collection<Integer> ico_nodeKeys) throws NodeNotFoundException {
-        return null;
     }
 
     @Override
@@ -113,22 +96,12 @@ public class Tree implements TreeInterface {
     }
 
     @Override
-    public void removeNode(int iva_key) throws NodeNotFoundException {
-
-    }
-
-    @Override
     public void removeNode(NodeInterface iob_node) throws NodeNotFoundException {
 
     }
 
     @Override
     public void removeNodes(Collection<NodeInterface> ico_nodeCollection) throws NodeNotFoundException {
-
-    }
-
-    @Override
-    public void removeNodesByKey(Collection<Integer> ico_nodeKeys) throws NodeNotFoundException {
 
     }
 
@@ -163,13 +136,7 @@ public class Tree implements TreeInterface {
 
     }
 
-
-    private void setNodeKey(NodeInterface iob_node) {
-        iob_node.setKey(this.gva_nodeKey);
-        this.gva_nodeKey++;
-    }
-
-    private NodeInterface addNodeRekursiv(NodeInterface iob_parent, NodeInterface iob_nodeToInsert, int depth) {
+    private NodeInterface addNode(NodeInterface iob_parent, NodeInterface iob_nodeToInsert, int depth) {
         //------------------------------------Variables---------------------------------------------------------
         String[] lar_childNodePath;
         String[] lar_parentNodePath;
@@ -184,7 +151,7 @@ public class Tree implements TreeInterface {
             if (lob_childNode.isDirectory()) {
                 lar_childNodePath = convertPathToArray(lob_childNode.getPath());
                 if (lar_nodeToInsertPath[depth].equals(lar_childNodePath[depth])) {
-                    return addNodeRekursiv(lob_childNode, iob_nodeToInsert, ++depth);
+                    return addNode(lob_childNode, iob_nodeToInsert, ++depth);
                 }
             }
         }
@@ -203,12 +170,11 @@ public class Tree implements TreeInterface {
             lob_newDirectoryPath.delete(lob_newDirectoryPath.lastIndexOf("\\"), lob_newDirectoryPath.length());
             //create the new directory
             lob_newDirectory = createNewDirectory(lob_newDirectoryPath.toString());
-            setNodeKey(lob_newDirectory);
             //set the current node as parent for the new directory
             lob_newDirectory.setParent(iob_parent);
             //add the new directory as child to the current node
             iob_parent.addChild(lob_newDirectory);
-            return addNodeRekursiv(lob_newDirectory, iob_nodeToInsert, ++depth);
+            return addNode(lob_newDirectory, iob_nodeToInsert, ++depth);
         }
 
         return iob_parent;
@@ -231,20 +197,6 @@ public class Tree implements TreeInterface {
         NodeInterface rob_directory = new Node(lva_directoryName, iva_path);
         rob_directory.setDirectory(true);
         return rob_directory;
-    }
-
-    private NodeInterface searchTreeRecursive(NodeInterface iob_root, String iva_path) {
-        for (NodeInterface lob_childNode : iob_root.getChildren()) {
-            if ( lob_childNode!= null) {
-                if ((lob_childNode.getPath()).equals(iva_path)) {
-                    return lob_childNode;
-                } else {
-                    return searchTreeRecursive(lob_childNode,iva_path);
-                }
-            }
-
-        }
-        return null;
     }
 
     private NodeInterface searchNode(NodeInterface iob_parent, String iva_path, int depth) {

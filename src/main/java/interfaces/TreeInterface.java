@@ -11,15 +11,11 @@ public interface TreeInterface {
 
     void addNodes(Collection<NodeInterface> ico_nodeCollection);
 
-    NodeInterface getNode(int iva_key) throws NodeNotFoundException;
-
     NodeInterface getNode(String iva_path) throws NodeNotFoundException;
 
     NodeInterface getRoot();
 
     Collection<NodeInterface> getRootSubNodes();
-
-    Collection<NodeInterface> getNodesByKey(Collection<Integer> ico_nodeKeys) throws NodeNotFoundException;
 
     Collection<NodeInterface> getNodesByPath(Collection<String> ico_nodePaths) throws NodeNotFoundException;
 
@@ -31,13 +27,9 @@ public interface TreeInterface {
 
     void removeNode(String iva_path) throws NodeNotFoundException;
 
-    void removeNode(int iva_key) throws NodeNotFoundException;
-
     void removeNode(NodeInterface iob_node) throws NodeNotFoundException;
 
     void removeNodes(Collection<NodeInterface> ico_nodeCollection) throws NodeNotFoundException;
-
-    void removeNodesByKey(Collection<Integer> ico_nodeKeys) throws NodeNotFoundException;
 
     void removeNodesByPath(Collection<String> ico_nodePaths) throws NodeNotFoundException;
 

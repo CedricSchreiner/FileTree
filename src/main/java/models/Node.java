@@ -11,14 +11,11 @@ import java.util.Collection;
 
 public class Node implements NodeInterface{
 
-    private static final String GC_INVALID_KEY = "Invalid Key (key must be >= 0)";
     private static final String GC_INVALID_PATH = "Path can not be empty";
     private static final String GC_EMPTY = "";
     private static final String GC_NODE_NOT_FOUND = "Node not found: ";
-    private static final String GC_NODE_WITH_KEY_NOT_FOUND = "Node with this key not found: ";
     private static final String GC_INVALID_FILE_SIZE = "The file size can not be negative";
 
-    private int gva_key;
     private String gva_path;
     private boolean gva_isDirectory;
     private Collection<NodeInterface> gco_children;
@@ -27,10 +24,7 @@ public class Node implements NodeInterface{
     private long gva_size;
     private String gva_name;
 
-    public Node(int iva_key, String iva_name, String iva_path, boolean iva_isDirectory, long iva_size) {
-        if (iva_key < 0) {
-            throw new InvalidNodeKeyException(GC_INVALID_KEY);
-        }
+    public Node(String iva_name, String iva_path, boolean iva_isDirectory, long iva_size) {
 
         if (iva_path.trim().equals(GC_EMPTY)) {
             throw new InvalidPathException(GC_INVALID_PATH);
@@ -39,8 +33,6 @@ public class Node implements NodeInterface{
         if (iva_size < 0) {
             throw new InvalidSizeException(GC_INVALID_FILE_SIZE);
         }
-
-        this.gva_key = iva_key;
         this.gva_path = iva_path;
         this.gva_isDirectory = iva_isDirectory;
         this.gco_children = new ArrayList<>();
@@ -50,11 +42,11 @@ public class Node implements NodeInterface{
     }
 
     public Node(String iva_name, String iva_path, boolean iva_isDirectory) {
-        this(0, iva_name, iva_path, iva_isDirectory, 0);
+        this(iva_name, iva_path, iva_isDirectory, 0);
     }
 
     public Node(String iva_name, String iva_path) {
-        this(0, iva_name, iva_path, false, 0);
+        this(iva_name, iva_path, false, 0);
     }
 
     /**
@@ -85,20 +77,6 @@ public class Node implements NodeInterface{
     @Override
     public void setDirectory(boolean iva_isDirectory) {
         this.gva_isDirectory = iva_isDirectory;
-    }
-
-    @Override
-    public void setKey(int iva_key) throws InvalidNodeKeyException{
-        if (iva_key < 0) {
-            throw new InvalidNodeKeyException(GC_INVALID_KEY);
-        }
-
-        this.gva_key = iva_key;
-    }
-
-    @Override
-    public int getKey() {
-        return this.gva_key;
     }
 
     @Override
@@ -139,19 +117,6 @@ public class Node implements NodeInterface{
     }
 
     @Override
-    public NodeInterface getChild(int iva_key) throws NodeNotFoundException {
-        //---------------------------Variables-------------------------------
-        NodeInterface lob_searchedNode = searchChildNode(iva_key);
-        //-------------------------------------------------------------------
-
-        if (lob_searchedNode == null && gva_nodeNotFoundExceptionStatus) {
-            throw new NodeNotFoundException(GC_NODE_WITH_KEY_NOT_FOUND + iva_key);
-        }
-
-        return lob_searchedNode;
-    }
-
-    @Override
     public Collection<NodeInterface> getChildren() {
         return this.gco_children;
     }
@@ -184,21 +149,6 @@ public class Node implements NodeInterface{
     }
 
     @Override
-    public void removeChild(int iva_key) throws NodeNotFoundException {
-        //---------------------------Variables-------------------------
-        boolean lva_isNodeAvailable;
-        //-------------------------------------------------------------
-
-        lva_isNodeAvailable = gco_children.removeIf(lob_node ->
-                lob_node.getKey() == iva_key
-        );
-
-        if (!lva_isNodeAvailable && gva_nodeNotFoundExceptionStatus) {
-            throw new NodeNotFoundException(GC_NODE_NOT_FOUND);
-        }
-    }
-
-    @Override
     public void removeChildren(Collection<String> ico_nodePaths) throws NodeNotFoundException {
         //---------------------------Variables-------------------------------------------------
         StringBuilder lob_nodesNotFound = new StringBuilder();
@@ -212,28 +162,6 @@ public class Node implements NodeInterface{
 
             if (!isNodeRemoved) {
                 lob_nodesNotFound.append(lva_path).append(", ");
-            }
-        }
-
-        if (lob_nodesNotFound.length() != 0 && gva_nodeNotFoundExceptionStatus) {
-            throw new NodeNotFoundException(GC_NODE_NOT_FOUND + lob_nodesNotFound.toString());
-        }
-    }
-
-    @Override
-    public void removeChildrenByKeys(Collection<Integer> ico_nodeKeys) throws NodeNotFoundException {
-        //---------------------------Variables-------------------------------------------------------
-        StringBuilder lob_nodesNotFound = new StringBuilder();
-        boolean isNodeRemoved;
-        //-------------------------------------------------------------------------------------------
-
-        for (int lva_key : ico_nodeKeys) {
-            isNodeRemoved = gco_children.removeIf(lob_node ->
-                    lob_node.getKey() == lva_key
-            );
-
-            if (!isNodeRemoved) {
-                lob_nodesNotFound.append(lva_key).append(", ");
             }
         }
 
@@ -280,16 +208,6 @@ public class Node implements NodeInterface{
     @Override
     public long calculateSize() {
         return 0;
-    }
-
-    private NodeInterface searchChildNode(int iva_key) {
-        for (NodeInterface lob_collectionNode : this.gco_children) {
-            if (lob_collectionNode.getKey() == iva_key) {
-                return lob_collectionNode;
-            }
-        }
-        
-        return null;
     }
     
     private NodeInterface searchChildNode(String iva_path) {

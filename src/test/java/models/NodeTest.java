@@ -1,6 +1,5 @@
 package models;
 
-import exceptions.InvalidNodeKeyException;
 import exceptions.InvalidPathException;
 import interfaces.NodeInterface;
 import org.junit.Assert;
@@ -8,8 +7,6 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
-import static org.junit.Assert.*;
 
 public class NodeTest {
 
@@ -26,22 +23,6 @@ public class NodeTest {
     }
 
     @Test
-    public void setKey() {
-        NodeInterface node = new Node("node","Path");
-        Assert.assertEquals(0, node.getKey());
-
-        node.setKey(1);
-
-        Assert.assertEquals(1, node.getKey());
-    }
-
-    @Test(expected = InvalidNodeKeyException.class)
-    public void setInvalidKey(){
-        NodeInterface node = new Node("node","Path");
-        node.setKey(-1);
-    }
-
-    @Test
     public void setPath() {
         NodeInterface node = new Node("node","Path");
 
@@ -54,7 +35,7 @@ public class NodeTest {
 
     @Test(expected = InvalidPathException.class)
     public void setInvalidPath() {
-        NodeInterface node = new Node("node","");
+        new Node("node","");
     }
 
     @Test
