@@ -82,11 +82,18 @@ public class Tree implements TreeInterface {
 
     @Override
     public Collection<NodeInterface> getNodesByPath(Collection<String> ico_nodePaths) throws NodeNotFoundException {
-        Collection<NodeInterface> lco_foundNodesByPath = new ArrayList<>();
+        //---------------------------------------Variables----------------------------------------------------------
+        Collection<NodeInterface> rco_foundNodesByPath = new ArrayList<>();
+        NodeInterface lob_searchedNode;
+        //----------------------------------------------------------------------------------------------------------
+
         for (String iva_path : ico_nodePaths){
-            lco_foundNodesByPath.add(searchNode(gob_root,iva_path,0));
+            lob_searchedNode = searchNode(gob_root,iva_path,0);
+            if (lob_searchedNode != null) {
+                rco_foundNodesByPath.add(lob_searchedNode);
+            }
         }
-        return lco_foundNodesByPath;
+        return rco_foundNodesByPath;
     }
 
     @Override
