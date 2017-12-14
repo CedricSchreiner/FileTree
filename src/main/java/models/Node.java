@@ -128,7 +128,7 @@ public class Node implements NodeInterface{
     @Override
     public NodeInterface getChild(String iva_path) throws NodeNotFoundException {
         //---------------------------Variables-----------------------------------
-        NodeInterface lob_searchedNode = searchNode(iva_path);
+        NodeInterface lob_searchedNode = searchChildNode(iva_path);
         //-----------------------------------------------------------------------
         
         if (lob_searchedNode == null && gva_nodeNotFoundExceptionStatus) {
@@ -141,7 +141,7 @@ public class Node implements NodeInterface{
     @Override
     public NodeInterface getChild(int iva_key) throws NodeNotFoundException {
         //---------------------------Variables-------------------------------
-        NodeInterface lob_searchedNode = searchNode(iva_key);
+        NodeInterface lob_searchedNode = searchChildNode(iva_key);
         //-------------------------------------------------------------------
 
         if (lob_searchedNode == null && gva_nodeNotFoundExceptionStatus) {
@@ -282,7 +282,7 @@ public class Node implements NodeInterface{
         return 0;
     }
 
-    private NodeInterface searchNode(int iva_key) {
+    private NodeInterface searchChildNode(int iva_key) {
         for (NodeInterface lob_collectionNode : this.gco_children) {
             if (lob_collectionNode.getKey() == iva_key) {
                 return lob_collectionNode;
@@ -292,7 +292,7 @@ public class Node implements NodeInterface{
         return null;
     }
     
-    private NodeInterface searchNode(String iva_path) {
+    private NodeInterface searchChildNode(String iva_path) {
         for (NodeInterface lob_collectionNode : this.gco_children) {
             if (lob_collectionNode.getPath().equals(iva_path)) {
                 return lob_collectionNode;
@@ -302,7 +302,7 @@ public class Node implements NodeInterface{
         return null;
     }
 
-    private NodeInterface searchNode(NodeInterface iob_node) {
+    private NodeInterface searchChildNode(NodeInterface iob_node) {
         for (NodeInterface lob_collectionNode : this.gco_children) {
             if (lob_collectionNode == iob_node) {
                 return lob_collectionNode;
@@ -314,10 +314,10 @@ public class Node implements NodeInterface{
 
     @Override
     public boolean isAvailable(String iva_path){
-        if(searchNode(iva_path) == null){
-            return true;
+        if(searchChildNode(iva_path) == null){
+            return false;
         }
-        return false;
+        return true;
     }
 
 }
