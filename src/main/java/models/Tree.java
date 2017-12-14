@@ -106,7 +106,20 @@ public class Tree implements TreeInterface {
 
     @Override
     public void removeNode(String iva_path) throws NodeNotFoundException {
+        //---------------------------Variables-----------------------------------
+        NodeInterface lob_nodeToRemove = searchNode(gob_root,iva_path,0);
+        NodeInterface lob_tempNode;
+        //-----------------------------------------------------------------------
 
+        if(lob_nodeToRemove == null && gva_nodeNotFoundExceptionStatus){
+
+            throw new NodeNotFoundException(GC_NODE_NOT_FOUND + iva_path);
+
+        }else if((lob_tempNode = lob_nodeToRemove.getParent()) != null){
+            lob_tempNode.removeAllChildren();
+        }else {
+            lob_nodeToRemove.removeAllChildren();
+        }
     }
 
     @Override
