@@ -312,4 +312,12 @@ public class Node implements NodeInterface{
         return null;
     }
 
+    @Override
+    public boolean isAvailable(String iva_path){
+        if(searchNode(iva_path) == null){
+            return true;
+        }
+        return false;
+    }
+
 }

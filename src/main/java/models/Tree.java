@@ -9,8 +9,8 @@ import java.util.List;
 
 public class Tree implements TreeInterface {
 
-    private static final String BASE_DIRECTORY = "C:\\\\Users\\\\Cedric\\\\Documents\\\\";
-    private static final String GC_ROOT_PATH = "C:\\Users\\Cedric\\Documents\\BaseDirectory";
+    private static final String BASE_DIRECTORY = "C:\\\\Users\\\\Darth-Vader\\\\Documents\\\\Fileserver\\\\";
+    private static final String GC_ROOT_PATH = "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root";
     private static final int GC_ROOT_KEY = 0;
     private static final String GC_ROOT_NAME = "<ROOT>";
 

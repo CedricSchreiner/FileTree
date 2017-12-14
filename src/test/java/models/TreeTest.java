@@ -15,13 +15,13 @@ public class TreeTest {
 
     @Test
     public void addNode() {
-        NodeInterface firstLayerTextFile = new Node("", "C:\\Users\\Cedric\\Documents\\BaseDirectory\\TestTextDatei.txt");
-        NodeInterface firstLayerDirectory = new Node("","C:\\Users\\Cedric\\Documents\\BaseDirectory\\testDirectory");
+        NodeInterface firstLayerTextFile = new Node("", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\TestTextDatei.txt");
+        NodeInterface firstLayerDirectory = new Node("","C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\parentDirectory");
         firstLayerDirectory.setDirectory(true);
-        NodeInterface secondLayerTextFile = new Node("","C:\\Users\\Cedric\\Documents\\BaseDirectory\\testDirectory\\testInDirectory.txt");
-        NodeInterface secondLayerDirectory = new Node("","C:\\Users\\Cedric\\Documents\\BaseDirectory\\testDirectory\\SecondLayerDirectory");
+        NodeInterface secondLayerTextFile = new Node("","C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\parentDirectory\\childFile.txt");
+        NodeInterface secondLayerDirectory = new Node("","C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\parentDirectory\\SecondParentDirectory");
         secondLayerDirectory.setDirectory(true);
-        NodeInterface thirdLayerTextFile = new Node("", "C:\\Users\\Cedric\\Documents\\BaseDirectory\\testDirectory\\SecondLayerDirectory\\ThirdFile.txt");
+        NodeInterface thirdLayerTextFile = new Node("", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\parentDirectory\\SecondParentDirectory\\ThirdFile.txt");
 
         /*
          *  root
