@@ -85,7 +85,7 @@ public interface NodeInterface {
 
     /**
      *
-     * @param iob_node
+     * @param iob_node the child to be removed from the node
      * @throws NodeNotFoundException
      */
     void removeChild(NodeInterface iob_node) throws NodeNotFoundException;

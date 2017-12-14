@@ -41,6 +41,10 @@ public class Tree implements TreeInterface {
 
         lob_parent = addNodeRekursiv(gob_root, iob_node, 0);
 
+        //set the parent of the new node
+        iob_node.setParent(lob_parent);
+
+        //add the new node as child to his parent
         lob_parent.addChild(iob_node);
     }
 
@@ -147,6 +151,11 @@ public class Tree implements TreeInterface {
         return gva_nodeNotFoundExceptionStatus;
     }
 
+    @Override
+    public void moveNode(NodeInterface iob_node, NodeInterface iob_destinationNode) {
+
+    }
+
     private void setNodeKey(NodeInterface iob_node) {
         iob_node.setKey(this.gva_nodeKey);
         this.gva_nodeKey++;
@@ -187,7 +196,9 @@ public class Tree implements TreeInterface {
             //create the new directory
             lob_newDirectory = createNewDirectory(lob_newDirectoryPath.toString());
             setNodeKey(lob_newDirectory);
-            //set it as child to the current node
+            //set the current node as parent for the new directory
+            lob_newDirectory.setParent(iob_parent);
+            //add the new directory as child to the current node
             iob_parent.addChild(lob_newDirectory);
             return addNodeRekursiv(lob_newDirectory, iob_nodeToInsert, ++depth);
         }

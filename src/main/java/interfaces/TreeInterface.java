@@ -48,4 +48,6 @@ public interface TreeInterface {
     void setNodeNotFoundExceptionStatus(boolean iva_exceptionStatus);
 
     boolean isExceptionActive();
+
+    void moveNode(NodeInterface iob_node, NodeInterface iob_destinationNode);
 }
