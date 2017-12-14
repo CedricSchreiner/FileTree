@@ -27,7 +27,7 @@ public class Node implements NodeInterface{
     private long gva_size;
     private String gva_name;
 
-    public Node(int iva_key, String iva_nameString, String iva_path, boolean iva_isDirectory, long iva_size) {
+    public Node(int iva_key, String iva_name, String iva_path, boolean iva_isDirectory, long iva_size) {
         if (iva_key < 0) {
             throw new InvalidNodeKeyException(GC_INVALID_KEY);
         }
@@ -46,6 +46,7 @@ public class Node implements NodeInterface{
         this.gco_children = new ArrayList<>();
         this.gva_nodeNotFoundExceptionStatus = true;
         this.gob_parent = null;
+        this.gva_name = iva_name;
     }
 
     public Node(String iva_name, String iva_path, boolean iva_isDirectory) {
@@ -70,7 +71,7 @@ public class Node implements NodeInterface{
      */
     @Override
     public void setName(String iva_name) {
-
+        this.gva_name = iva_name;
     }
 
     /**
@@ -78,7 +79,7 @@ public class Node implements NodeInterface{
      */
     @Override
     public String getName() {
-        return null;
+        return this.gva_name;
     }
 
     @Override
