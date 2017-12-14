@@ -62,6 +62,8 @@ public class TreeTest {
         //clear the tree
         tree.clear();
         tree.addNode(thirdLayerTextFile);
+
+        tree.addNode(secondLayerDirectory);
 //        /*
 //         *  root
 //         *    |-firstLayerDirectory <-- this folder is not inserted yes, so it has to be auto generated

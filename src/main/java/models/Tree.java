@@ -38,6 +38,11 @@ public class Tree implements TreeInterface {
         //---------------------------------------
 
         searchTreeRecursive(gob_root,iob_node.getPath());
+        NodeInterface node = searchNode(gob_root, iob_node.getPath(), 0);
+
+        if (node != null) {
+            System.out.println("Knoten schon vorhanden: " + iob_node.getPath());
+        }
 
         setNodeKey(iob_node);
 
@@ -239,6 +244,26 @@ public class Tree implements TreeInterface {
             }
 
         }
+        return null;
+    }
+
+    private NodeInterface searchNode(NodeInterface iob_parent, String iva_path, int depth) {
+        //-------------------------------Variables------------------------------------------
+        String[] lar_childPath;
+        String[] lar_searchPath = convertPathToArray(iva_path);
+        //----------------------------------------------------------------------------------
+
+        if (iob_parent.getPath().equals(iva_path)) {
+            return iob_parent;
+        }
+
+        for (NodeInterface lob_childNode : iob_parent.getChildren()) {
+            lar_childPath = convertPathToArray(lob_childNode.getPath());
+            if (lar_childPath[depth].equals(lar_searchPath[depth])) {
+                return searchNode(lob_childNode, iva_path, ++depth);
+            }
+        }
+
         return null;
     }
 }
