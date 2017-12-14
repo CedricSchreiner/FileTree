@@ -37,6 +37,8 @@ public class Tree implements TreeInterface {
         NodeInterface lob_parent;
         //---------------------------------------
 
+        searchTreeRecursive(gob_root,iob_node.getPath());
+
         setNodeKey(iob_node);
 
         lob_parent = addNodeRekursiv(gob_root, iob_node, 0);
@@ -235,7 +237,8 @@ public class Tree implements TreeInterface {
                     return searchTreeRecursive(lob_childNode,iva_path);
                 }
             }
-            return null;
+
         }
+        return null;
     }
 }

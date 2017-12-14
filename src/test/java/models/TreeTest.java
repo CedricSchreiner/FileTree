@@ -57,6 +57,8 @@ public class TreeTest {
         tree.addNode(secondLayerDirectory);
         Assert.assertEquals(secondLayerDirectory, firstLayerDirectory.getChild(secondLayerDirectory.getKey()));
 
+
+
         //clear the tree
         tree.clear();
         tree.addNode(thirdLayerTextFile);
