@@ -3,7 +3,6 @@ package models;
 import exceptions.NodeNotFoundException;
 import interfaces.NodeInterface;
 import interfaces.TreeInterface;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -12,6 +11,7 @@ public class Tree implements TreeInterface {
     private static final String BASE_DIRECTORY = "C:\\\\Users\\\\Darth-Vader\\\\Documents\\\\Fileserver\\\\";
     private static final String GC_ROOT_PATH = "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root";
     private static final String GC_ROOT_NAME = "<ROOT>";
+    private static final String GC_NODE_NOT_FOUND = "Node not found: ";
 
     private NodeInterface gob_root;
     private boolean gva_nodeNotFoundExceptionStatus;
@@ -57,7 +57,15 @@ public class Tree implements TreeInterface {
 
     @Override
     public NodeInterface getNode(String iva_path) throws NodeNotFoundException {
-        return null;
+        //---------------------------Variables-----------------------------------
+        NodeInterface lob_getNode = searchNode(gob_root,iva_path,0);
+        //-----------------------------------------------------------------------
+
+        if (lob_getNode == null && gva_nodeNotFoundExceptionStatus){
+            throw new NodeNotFoundException(GC_NODE_NOT_FOUND + iva_path);
+        }
+
+        return lob_getNode;
     }
 
     @Override
