@@ -3,6 +3,8 @@ package models;
 import exceptions.NodeNotFoundException;
 import interfaces.NodeInterface;
 import interfaces.TreeInterface;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -80,7 +82,11 @@ public class Tree implements TreeInterface {
 
     @Override
     public Collection<NodeInterface> getNodesByPath(Collection<String> ico_nodePaths) throws NodeNotFoundException {
-        return null;
+        Collection<NodeInterface> lco_foundNodesByPath = new ArrayList<>();
+        for (String iva_path : ico_nodePaths){
+            lco_foundNodesByPath.add(searchNode(gob_root,iva_path,0));
+        }
+        return lco_foundNodesByPath;
     }
 
     @Override
