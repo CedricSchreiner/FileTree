@@ -156,6 +156,7 @@ public class Tree implements TreeInterface {
 
     }
 
+
     private void setNodeKey(NodeInterface iob_node) {
         iob_node.setKey(this.gva_nodeKey);
         this.gva_nodeKey++;
@@ -223,5 +224,18 @@ public class Tree implements TreeInterface {
         NodeInterface rob_directory = new Node(lva_directoryName, iva_path);
         rob_directory.setDirectory(true);
         return rob_directory;
+    }
+
+    private NodeInterface searchTreeRecursive(NodeInterface iob_root, String iva_path) {
+        for (NodeInterface lob_childNode : iob_root.getChildren()) {
+            if ( lob_childNode!= null) {
+                if ((lob_childNode.getPath()).equals(iva_path)) {
+                    return lob_childNode;
+                } else {
+                    return searchTreeRecursive(lob_childNode,iva_path);
+                }
+            }
+            return null;
+        }
     }
 }

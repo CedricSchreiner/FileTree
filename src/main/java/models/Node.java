@@ -312,12 +312,4 @@ public class Node implements NodeInterface{
         return null;
     }
 
-    @Override
-    public boolean isAvailable(String iva_path){
-        if(searchChildNode(iva_path) == null){
-            return false;
-        }
-        return true;
-    }
-
 }

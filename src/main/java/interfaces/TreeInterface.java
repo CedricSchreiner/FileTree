@@ -50,4 +50,5 @@ public interface TreeInterface {
     boolean isExceptionActive();
 
     void moveNode(NodeInterface iob_node, NodeInterface iob_destinationNode);
+
 }

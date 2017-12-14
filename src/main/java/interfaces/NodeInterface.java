@@ -113,6 +113,4 @@ public interface NodeInterface {
     long getSize();
 
     long calculateSize();
-
-    boolean isAvailable(String iva_path);
 }

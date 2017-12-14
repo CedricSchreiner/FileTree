@@ -26,15 +26,6 @@ public class NodeTest {
     }
 
     @Test
-    public void isAvailable(){
-
-        NodeInterface node = new Node("node", "Path");
-
-        Assert.assertFalse(node.isAvailable("Path"));
-        Assert.assertTrue(node.isAvailable("PathFalse"));
-    }
-
-    @Test
     public void setKey() {
         NodeInterface node = new Node("node","Path");
         Assert.assertEquals(0, node.getKey());
