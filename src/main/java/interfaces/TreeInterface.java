@@ -33,6 +33,10 @@ public interface TreeInterface {
 
     void removeNodesByPath(Collection<String> ico_nodePaths) throws NodeNotFoundException;
 
+    void removeDirectoryOnly(NodeInterface iob_node);
+
+    void removeDirectoryOnly(String iva_path);
+
     List<NodeInterface> toList();
 
     NodeInterface[] toArray();

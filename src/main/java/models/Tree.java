@@ -115,17 +115,21 @@ public class Tree implements TreeInterface {
     public void removeNode(String iva_path) throws NodeNotFoundException {
         //---------------------------Variables-----------------------------------
         NodeInterface lob_nodeToRemove = searchNode(gob_root,iva_path,0);
-        NodeInterface lob_tempNode;
+        NodeInterface lob_parentNode = null;
         //-----------------------------------------------------------------------
 
         if(lob_nodeToRemove == null && gva_nodeNotFoundExceptionStatus){
-
             throw new NodeNotFoundException(GC_NODE_NOT_FOUND + iva_path);
+        }
 
-        }else if((lob_tempNode = lob_nodeToRemove.getParent()) != null){
-            lob_tempNode.removeAllChildren();
-        }else {
+        if (lob_nodeToRemove != null) {
+            lob_parentNode = lob_nodeToRemove.getParent();
+            lob_nodeToRemove.setParent(null);
             lob_nodeToRemove.removeAllChildren();
+        }
+
+        if (lob_parentNode != null) {
+            lob_parentNode.removeChild(lob_nodeToRemove);
         }
     }
 
@@ -141,6 +145,16 @@ public class Tree implements TreeInterface {
 
     @Override
     public void removeNodesByPath(Collection<String> ico_nodePaths) throws NodeNotFoundException {
+
+    }
+
+    @Override
+    public void removeDirectoryOnly(NodeInterface iob_node) {
+
+    }
+
+    @Override
+    public void removeDirectoryOnly(String iva_path) {
 
     }
 
