@@ -7,9 +7,9 @@ import java.util.List;
 public interface TreeInterface {
     void clear();
 
-    void addNode(NodeInterface iob_node);
+    boolean addNode(NodeInterface iob_node);
 
-    void addNodes(Collection<NodeInterface> ico_nodeCollection);
+    boolean addNodes(Collection<NodeInterface> ico_nodeCollection);
 
     NodeInterface getNode(String iva_path) throws NodeNotFoundException;
 
@@ -25,17 +25,17 @@ public interface TreeInterface {
 
     Collection<NodeInterface> gettAll();
 
-    void removeNode(String iva_path) throws NodeNotFoundException;
+    boolean removeNode(String iva_path) throws NodeNotFoundException;
 
-    void removeNode(NodeInterface iob_node) throws NodeNotFoundException;
+    boolean removeNode(NodeInterface iob_node) throws NodeNotFoundException;
 
-    void removeNodes(Collection<NodeInterface> ico_nodeCollection) throws NodeNotFoundException;
+    boolean removeNodes(Collection<NodeInterface> ico_nodeCollection) throws NodeNotFoundException;
 
-    void removeNodesByPath(Collection<String> ico_nodePaths) throws NodeNotFoundException;
+    boolean removeNodesByPath(Collection<String> ico_nodePaths) throws NodeNotFoundException;
 
-    void removeDirectoryOnly(NodeInterface iob_node);
+    boolean removeDirectoryOnly(NodeInterface iob_node);
 
-    void removeDirectoryOnly(String iva_path);
+    boolean removeDirectoryOnly(String iva_path);
 
     List<NodeInterface> toList();
 

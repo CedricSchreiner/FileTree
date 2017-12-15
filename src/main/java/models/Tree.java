@@ -30,7 +30,7 @@ public class Tree implements TreeInterface {
     }
 
     @Override
-    public void addNode(NodeInterface iob_node) {
+    public boolean addNode(NodeInterface iob_node) {
         //---------------Variables---------------
         NodeInterface lob_parent;
         //---------------------------------------
@@ -38,7 +38,7 @@ public class Tree implements TreeInterface {
         NodeInterface node = searchNode(gob_root, iob_node.getPath(), 0);
 
         if (node != null) {
-            System.out.println("Knoten schon vorhanden: " + iob_node.getPath());
+            return false;
         }
 
         lob_parent = addNode(gob_root, iob_node, 0);
@@ -48,13 +48,22 @@ public class Tree implements TreeInterface {
 
         //add the new node as child to his parent
         lob_parent.addChild(iob_node);
+
+        return true;
     }
 
     @Override
-    public void addNodes(Collection<NodeInterface> ico_nodeCollection) {
+    public boolean addNodes(Collection<NodeInterface> ico_nodeCollection) {
+        //------------------------Variables--------------------------------
+        boolean lr_isNodeInsertionSuccssful = true;
+        //-----------------------------------------------------------------
+
         for (NodeInterface lob_node : ico_nodeCollection) {
-            addNode(lob_node);
+            if(!addNode(lob_node)){
+                lr_isNodeInsertionSuccssful = false;
+            }
         }
+        return lr_isNodeInsertionSuccssful;
     }
 
     @Override
@@ -112,50 +121,72 @@ public class Tree implements TreeInterface {
     }
 
     @Override
-    public void removeNode(String iva_path) throws NodeNotFoundException {
+    public boolean removeNode(String iva_path) throws NodeNotFoundException {
         //---------------------------Variables-----------------------------------
         NodeInterface lob_nodeToRemove = searchNode(gob_root,iva_path,0);
-        NodeInterface lob_parentNode = null;
+        NodeInterface lob_parentNode;
         //-----------------------------------------------------------------------
 
         if(lob_nodeToRemove == null && gva_nodeNotFoundExceptionStatus){
             throw new NodeNotFoundException(GC_NODE_NOT_FOUND + iva_path);
         }
 
-        if (lob_nodeToRemove != null) {
-            lob_parentNode = lob_nodeToRemove.getParent();
-            lob_nodeToRemove.setParent(null);
-            lob_nodeToRemove.removeAllChildren();
+        if (lob_nodeToRemove == null) {
+            return false;
         }
+
+        lob_parentNode = lob_nodeToRemove.getParent();
+        lob_nodeToRemove.setParent(null);
+        lob_nodeToRemove.removeAllChildren();
 
         if (lob_parentNode != null) {
             lob_parentNode.removeChild(lob_nodeToRemove);
         }
+
+        return true;
     }
 
     @Override
-    public void removeNode(NodeInterface iob_node) throws NodeNotFoundException {
-
+    public boolean removeNode(NodeInterface iob_node) throws NodeNotFoundException {
+        return removeNode(iob_node.getPath());
     }
 
     @Override
-    public void removeNodes(Collection<NodeInterface> ico_nodeCollection) throws NodeNotFoundException {
+    public boolean removeNodes(Collection<NodeInterface> ico_nodeCollection) throws NodeNotFoundException {
+        //--------------------------------------Variables--------------------------------------------------
+        boolean lr_isNodeInsertionSuccssful = true;
+        //-------------------------------------------------------------------------------------------------
+        for (NodeInterface lob_collectionNode : ico_nodeCollection) {
+            if (!removeNode(lob_collectionNode.getPath())) {
+                lr_isNodeInsertionSuccssful = false;
+            }
+        }
 
+        return lr_isNodeInsertionSuccssful;
     }
 
     @Override
-    public void removeNodesByPath(Collection<String> ico_nodePaths) throws NodeNotFoundException {
+    public boolean removeNodesByPath(Collection<String> ico_nodePaths) throws NodeNotFoundException {
+        //------------------------------------Variables----------------------------------------------
+        boolean lr_isNodeInsertionSuccssful = true;
+        //-------------------------------------------------------------------------------------------
+        for (String lva_nodePath : ico_nodePaths) {
+            if(!removeNode(lva_nodePath)){
+                lr_isNodeInsertionSuccssful = false;
+            }
+        }
 
+        return lr_isNodeInsertionSuccssful;
     }
 
     @Override
-    public void removeDirectoryOnly(NodeInterface iob_node) {
-
+    public boolean removeDirectoryOnly(NodeInterface iob_node) {
+        return true;
     }
 
     @Override
-    public void removeDirectoryOnly(String iva_path) {
-
+    public boolean removeDirectoryOnly(String iva_path) {
+        return true;
     }
 
     @Override
