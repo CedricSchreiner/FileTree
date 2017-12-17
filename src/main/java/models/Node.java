@@ -1,9 +1,6 @@
 package models;
 
-import exceptions.InvalidNodeKeyException;
-import exceptions.InvalidPathException;
-import exceptions.InvalidSizeException;
-import exceptions.NodeNotFoundException;
+import exceptions.*;
 import interfaces.NodeInterface;
 
 import java.util.ArrayList;
@@ -15,6 +12,7 @@ public class Node implements NodeInterface{
     private static final String GC_EMPTY = "";
     private static final String GC_NODE_NOT_FOUND = "Node not found: ";
     private static final String GC_INVALID_FILE_SIZE = "The file size can not be negative";
+    private static final String GC_CANT_ADD_CHILD_TO_FILE = "a normal file can not have children";
 
     private String gva_path;
     private boolean gva_isDirectory;
@@ -95,12 +93,20 @@ public class Node implements NodeInterface{
 
     @Override
     public void addChild(NodeInterface iob_node) {
-        this.gco_children.add(iob_node);
+        if (this.gva_isDirectory) {
+            this.gco_children.add(iob_node);
+        } else {
+            throw new NodeException(GC_CANT_ADD_CHILD_TO_FILE);
+        }
     }
 
     @Override
     public void addChildren(Collection<NodeInterface> ico_nodeCollection) {
-        this.gco_children.addAll(ico_nodeCollection);
+        if (this.gva_isDirectory) {
+            this.gco_children.addAll(ico_nodeCollection);
+        } else {
+            throw new NodeException(GC_CANT_ADD_CHILD_TO_FILE);
+        }
     }
 
     @Override
