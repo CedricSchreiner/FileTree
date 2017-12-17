@@ -238,8 +238,32 @@ public class Tree implements TreeInterface {
     }
 
     @Override
-    public void moveNode(NodeInterface iob_node, NodeInterface iob_destinationNode) {
+    public boolean moveNode(NodeInterface iob_node, NodeInterface iob_destinationNode) {
+        return moveNode(iob_node.getPath(), iob_destinationNode.getPath());
+    }
 
+    @Override
+    public boolean moveNode(String iva_path, String iva_destinationPath) {
+        //---------------------------Variables----------------------------
+        NodeInterface lob_destinationNode = getNode(iva_destinationPath);
+        NodeInterface lob_node = getNode(iva_path);
+        NodeInterface lob_parent;
+        //----------------------------------------------------------------
+
+        if (lob_destinationNode == null || lob_node == null) {
+            return false;
+        }
+
+        lob_parent = lob_node.getParent();
+
+        if (lob_parent != null) {
+            lob_parent.removeChild(lob_node);
+        }
+
+        lob_node.setParent(lob_destinationNode);
+        lob_destinationNode.addChild(lob_node);
+
+        return true;
     }
 
     private NodeInterface addNode(NodeInterface iob_parent, NodeInterface iob_nodeToInsert, int depth) {

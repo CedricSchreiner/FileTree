@@ -45,6 +45,8 @@ public interface TreeInterface {
 
     boolean isExceptionActive();
 
-    void moveNode(NodeInterface iob_node, NodeInterface iob_destinationNode);
+    boolean moveNode(NodeInterface iob_node, NodeInterface iob_destinationNode);
+
+    boolean moveNode(String iva_path, String iva_destinationPath);
 
 }
