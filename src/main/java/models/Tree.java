@@ -107,16 +107,16 @@ public class Tree implements TreeInterface {
 
     @Override
     public Collection<NodeInterface> getAllFiles() {
-        return null;
+        return getAllFiles(this.gob_root, new ArrayList<>());
     }
 
     @Override
-    public Collection<NodeInterface> gettAllDirectories() {
-        return null;
+    public Collection<NodeInterface> getAllDirectories() {
+        return getAllDirectories(this.gob_root, new ArrayList<>());
     }
 
     @Override
-    public Collection<NodeInterface> gettAll() {
+    public Collection<NodeInterface> getAll() {
         return null;
     }
 
@@ -296,5 +296,30 @@ public class Tree implements TreeInterface {
         }
 
         return null;
+    }
+
+    private Collection<NodeInterface> getAllFiles(NodeInterface iob_node, Collection<NodeInterface> ico_files) {
+        if (!iob_node.isDirectory() && iob_node != this.gob_root) {
+            ico_files.add(iob_node);
+            return ico_files;
+        }
+
+        for (NodeInterface lob_child : iob_node.getChildren()) {
+            ico_files = getAllFiles(lob_child, ico_files);
+        }
+
+        return ico_files;
+    }
+
+    private Collection<NodeInterface> getAllDirectories(NodeInterface iob_node, Collection<NodeInterface> ico_directories) {
+        if (iob_node.isDirectory()) {
+            ico_directories.add(iob_node);
+        }
+
+        for (NodeInterface lob_child : iob_node.getChildren()) {
+            ico_directories = getAllDirectories(lob_child, ico_directories);
+        }
+
+        return ico_directories;
     }
 }

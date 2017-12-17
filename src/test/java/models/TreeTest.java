@@ -5,6 +5,8 @@ import interfaces.TreeInterface;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Collection;
+
 public class TreeTest {
 
     private TreeInterface tree = new Tree();
@@ -57,8 +59,7 @@ public class TreeTest {
         tree.addNode(secondLayerDirectory);
         Assert.assertEquals(secondLayerDirectory, firstLayerDirectory.getChild(secondLayerDirectory.getPath()));
 
-
-
+        tree.addNode(thirdLayerTextFile);
         //clear the tree
         tree.clear();
         tree.addNode(thirdLayerTextFile);

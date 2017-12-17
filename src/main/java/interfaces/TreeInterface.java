@@ -21,9 +21,9 @@ public interface TreeInterface {
 
     Collection<NodeInterface> getAllFiles();
 
-    Collection<NodeInterface> gettAllDirectories();
+    Collection<NodeInterface> getAllDirectories();
 
-    Collection<NodeInterface> gettAll();
+    Collection<NodeInterface> getAll();
 
     boolean removeNode(String iva_path) throws NodeNotFoundException;
 
