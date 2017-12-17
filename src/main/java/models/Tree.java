@@ -6,6 +6,7 @@ import interfaces.TreeInterface;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 public class Tree implements TreeInterface {
@@ -25,7 +26,6 @@ public class Tree implements TreeInterface {
 
     @Override
     public void clear() {
-        //this.gco_treeAsList.clear();
         this.gob_root.removeAllChildren();
     }
 
@@ -117,7 +117,7 @@ public class Tree implements TreeInterface {
 
     @Override
     public Collection<NodeInterface> getAll() {
-        return null;
+        return getAll(this.gob_root, new ArrayList<>());
     }
 
     @Override
@@ -181,12 +181,39 @@ public class Tree implements TreeInterface {
 
     @Override
     public boolean removeDirectoryOnly(NodeInterface iob_node) {
+        //----------------------Variables-----------------------
+        NodeInterface lob_parent = iob_node.getParent();
+        NodeInterface lob_child;
+        //------------------------------------------------------
+
+        if (!iob_node.isDirectory()) {
+            return false;
+        }
+
+        if (getNode(iob_node.getPath()) == null){
+            return false;
+        }
+
+        if (lob_parent != null) {
+            for (Iterator<NodeInterface> iterator = iob_node.getChildren().iterator(); iterator.hasNext();) {
+                lob_child = iterator.next();
+                lob_child.setParent(lob_parent);
+                lob_parent.addChild(lob_child);
+                iterator.remove();
+            }
+            lob_parent.removeChild(iob_node);
+        }
         return true;
     }
 
     @Override
     public boolean removeDirectoryOnly(String iva_path) {
-        return true;
+        //------------------Variables--------------------
+        NodeInterface lob_node = getNode(iva_path);
+        //-----------------------------------------------
+
+        return lob_node != null && removeDirectoryOnly(lob_node);
+
     }
 
     @Override
@@ -273,6 +300,7 @@ public class Tree implements TreeInterface {
         String[] lva_directoryPath = convertPathToArray(iva_path);
         String lva_directoryName = lva_directoryPath[lva_directoryPath.length - 1];
         //-----------------------------------------------------
+
         NodeInterface rob_directory = new Node(lva_directoryName, iva_path);
         rob_directory.setDirectory(true);
         return rob_directory;
@@ -290,7 +318,7 @@ public class Tree implements TreeInterface {
 
         for (NodeInterface lob_childNode : iob_parent.getChildren()) {
             lar_childPath = convertPathToArray(lob_childNode.getPath());
-            if (lar_childPath[depth].equals(lar_searchPath[depth])) {
+            if (lar_childPath[depth + 1].equals(lar_searchPath[depth + 1])) {
                 return searchNode(lob_childNode, iva_path, ++depth);
             }
         }
@@ -321,5 +349,17 @@ public class Tree implements TreeInterface {
         }
 
         return ico_directories;
+    }
+
+    private Collection<NodeInterface> getAll(NodeInterface iob_node, Collection<NodeInterface> ico_nodes) {
+        if (iob_node != this.gob_root) {
+            ico_nodes.add(iob_node);
+        }
+
+        for (NodeInterface lob_child : iob_node.getChildren()) {
+            ico_nodes = getAll(lob_child, ico_nodes);
+        }
+
+        return ico_nodes;
     }
 }

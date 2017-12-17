@@ -60,6 +60,15 @@ public class TreeTest {
         Assert.assertEquals(secondLayerDirectory, firstLayerDirectory.getChild(secondLayerDirectory.getPath()));
 
         tree.addNode(thirdLayerTextFile);
+
+        Assert.assertEquals(firstLayerDirectory, tree.getNode(firstLayerDirectory.getPath()));
+        Assert.assertEquals(firstLayerTextFile, tree.getNode(firstLayerTextFile.getPath()));
+        Assert.assertEquals(secondLayerDirectory, tree.getNode(secondLayerDirectory.getPath()));
+        Assert.assertEquals(secondLayerTextFile, tree.getNode(secondLayerTextFile.getPath()));
+        Assert.assertEquals(thirdLayerTextFile, tree.getNode(thirdLayerTextFile.getPath()));
+
+        tree.removeDirectoryOnly(firstLayerDirectory);
+
         //clear the tree
         tree.clear();
         tree.addNode(thirdLayerTextFile);
