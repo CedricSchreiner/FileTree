@@ -218,13 +218,12 @@ public class Tree implements TreeInterface {
 
     @Override
     public List<NodeInterface> toList() {
-        //return (List<NodeInterface>) this.gco_treeAsList;
-        return null;
+        return (List<NodeInterface>) getAll();
     }
 
     @Override
     public NodeInterface[] toArray() {
-        return null;
+        return (NodeInterface[]) getAll().toArray();
     }
 
     @Override
