@@ -1,6 +1,8 @@
 package interfaces;
 
 import exceptions.NodeNotFoundException;
+import models.TreeDifference;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -49,4 +51,5 @@ public interface TreeInterface {
 
     boolean moveNode(String iva_path, String iva_destinationPath);
 
+    TreeDifference compareTrees(TreeInterface iob_tree);
 }

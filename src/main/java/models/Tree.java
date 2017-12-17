@@ -265,6 +265,37 @@ public class Tree implements TreeInterface {
         return true;
     }
 
+    @Override
+    public TreeDifference compareTrees(TreeInterface iob_tree) {
+        //---------------------------Variables-----------------------------
+        Collection<NodeInterface> lco_thisTreeCollection = this.getAll();
+        Collection<NodeInterface> lco_treeCollection = iob_tree.getAll();
+        Collection<NodeInterface> lco_nodesToUpdate = new ArrayList<>();
+        Collection<NodeInterface> lco_nodesToDelete = new ArrayList<>();
+        Collection<NodeInterface> lco_nodesToInsert = new ArrayList<>();
+        NodeInterface lob_treeNode;
+        TreeDifference rob_treeDifference = new TreeDifference();
+        //-----------------------------------------------------------------
+
+        for (NodeInterface lob_collectionNode : lco_thisTreeCollection) {
+            lob_treeNode = iob_tree.getNode(lob_collectionNode.getPath());
+
+            if (lob_treeNode == null) {
+                lco_nodesToDelete.add(lob_collectionNode);
+            } else if (lob_treeNode.getSize() != lob_treeNode.getSize()) {
+                //the nodesize is different so it must be updated
+                lco_nodesToUpdate.add(lob_treeNode);
+                lco_treeCollection.remove(lob_treeNode);
+            }
+        }
+
+        rob_treeDifference.setNodesToUpdate(lco_nodesToUpdate);
+        rob_treeDifference.setNodesToDelete(lco_nodesToDelete);
+        rob_treeDifference.setNodesToInsert(lco_nodesToInsert);
+
+        return rob_treeDifference;
+    }
+
     private NodeInterface addNode(NodeInterface iob_parent, NodeInterface iob_nodeToInsert, int depth) {
         //------------------------------------Variables---------------------------------------------------------
         String[] lar_childNodePath;
