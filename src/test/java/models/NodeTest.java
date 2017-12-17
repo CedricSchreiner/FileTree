@@ -68,10 +68,15 @@ public class NodeTest {
 
     @Test
     public void getChild() {
-    }
+        NodeInterface node = new Node("node","Path", true);
+        NodeInterface child1 = new Node ("node","Child1");
+        NodeInterface child2;
 
-    @Test
-    public void getChild1() {
+        node.addChild(child1);
+
+        child2 = node.getChild(child1.getPath());
+
+        Assert.assertEquals(child1, child2);
     }
 
     @Test
@@ -83,19 +88,7 @@ public class NodeTest {
     }
 
     @Test
-    public void removeChild1() {
-    }
-
-    @Test
-    public void removeChild2() {
-    }
-
-    @Test
     public void removeChildren() {
-    }
-
-    @Test
-    public void removeChildrenByKeys() {
     }
 
     @Test
@@ -112,10 +105,6 @@ public class NodeTest {
 
     @Test
     public void setNodeNotFoundExceptionStatus() {
-    }
-
-    @Test
-    public void isExceptionActive() {
     }
 
 
