@@ -119,6 +119,7 @@ public class TreeTest {
         NodeInterface node6 = new Node("node6", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\testText.txt", false, 19);
         NodeInterface node7 = new Node("node7", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\testPDF.pdf", false, 1367);
         NodeInterface node8 = new Node("node8", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\Directory\\DIR", true, 0);
+        NodeInterface node9 = new Node("node9", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\DynamicDirectory\\AntoherOne\\Test.txt");
         tree.addNode(node1);
         tree.addNode(node2);
         tree.addNode(node3);
@@ -127,16 +128,19 @@ public class TreeTest {
         tree.addNode(node6);
         tree.addNode(node7);
         tree.addNode(node8);
+        tree.addNode(node9);
 
         NodeInterface node11 = new Node("ndoe11", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\TextFile.txt", false, 3);
         NodeInterface node12 = new Node("node12", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\Directory", true, 0);
         NodeInterface node13 = new Node("node13", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\Directory\\RenamedTextFile", false, 100);
         NodeInterface node14 = new Node("node14", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\Dir");
+        NodeInterface node15 = new Node("node15", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\create.txt");
 
         tree2.addNode(node11);
         tree2.addNode(node12);
         tree2.addNode(node13);
         tree2.addNode(node14);
+        tree2.addNode(node15);
 
 
         difference = tree.compareTrees(tree2);

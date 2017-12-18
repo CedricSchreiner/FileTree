@@ -287,16 +287,18 @@ public class Tree implements TreeInterface {
 
             if (lob_treeNode == null) {
                 lco_nodesToDelete.add(lob_collectionNode);
-            } else if (lob_treeNode.getSize() != lob_treeNode.getSize()) {
+            } else if (lob_treeNode.getSize() != lob_collectionNode.getSize()) {
                 //the nodesize is different so it must be updated
                 lco_nodesToUpdate.add(lob_treeNode);
-                lco_treeCollection.remove(lob_treeNode);
             }
+            lco_treeCollection.remove(lob_treeNode);
         }
+
+
 
         rob_treeDifference.setNodesToUpdate(lco_nodesToUpdate);
         rob_treeDifference.setNodesToDelete(lco_nodesToDelete);
-        rob_treeDifference.setNodesToInsert(lco_nodesToInsert);
+        rob_treeDifference.setNodesToInsert(lco_treeCollection);
 
         iob_tree.setNodeNotFoundExceptionStatus(lva_treeExceptionStatus);
         this.gva_nodeNotFoundExceptionStatus = lva_tmpExceptionStatus;

@@ -37,6 +37,7 @@ public class Node implements NodeInterface{
         this.gva_nodeNotFoundExceptionStatus = true;
         this.gob_parent = null;
         this.gva_name = iva_name;
+        this.gva_size = iva_size;
     }
 
     public Node(String iva_name, String iva_path, boolean iva_isDirectory) {
