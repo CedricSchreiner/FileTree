@@ -20,7 +20,7 @@ public class Tree implements TreeInterface {
     private boolean gva_nodeNotFoundExceptionStatus;
 
     public Tree() {
-        this.gob_root = NodeFactory.createDirectoryNode(GC_ROOT_NAME, GC_ROOT_PATH, 0);
+        this.gob_root = NodeFactory.createDirectoryNode(GC_ROOT_NAME, GC_ROOT_PATH);
         this.gva_nodeNotFoundExceptionStatus = true;
     }
 
@@ -373,7 +373,7 @@ public class Tree implements TreeInterface {
         String lva_directoryName = lva_directoryPath[lva_directoryPath.length - 1];
         //-----------------------------------------------------
 
-        return NodeFactory.createDirectoryNode(lva_directoryName, iva_path, 0);
+        return NodeFactory.createDirectoryNode(lva_directoryName, iva_path);
     }
 
     private NodeInterface searchNode(NodeInterface iob_parent, String iva_path, int depth) {

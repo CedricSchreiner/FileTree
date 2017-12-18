@@ -17,92 +17,121 @@ public class TreeTest {
 
     @Test
     public void addNode() {
-        NodeInterface firstLayerTextFile = new Node("", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\TestTextDatei.txt");
-        NodeInterface firstLayerDirectory = new Node("","C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\parentDirectory");
-        firstLayerDirectory.setDirectory(true);
-        NodeInterface secondLayerTextFile = new Node("","C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\parentDirectory\\childFile.txt");
-        NodeInterface secondLayerDirectory = new Node("","C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\parentDirectory\\SecondParentDirectory");
-        secondLayerDirectory.setDirectory(true);
-        NodeInterface thirdLayerTextFile = new Node("", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\parentDirectory\\SecondParentDirectory\\ThirdFile.txt");
+        //first-Layer-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        NodeInterface node1 = NodeFactory.createDirectoryNode("firstDirectory", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\firstDirectory");
+        NodeInterface node2 = NodeFactory.createDirectoryNode("secondDirectory", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\secondDirectory");
+        NodeInterface node3 = NodeFactory.createDirectoryNode("thirdDirectory", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\thirdDirectory");
+        NodeInterface node4 = NodeFactory.createDirectoryNode("fourthDirectory", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\fourthDirectory");
+        NodeInterface node5 = NodeFactory.createDirectoryNode("fifthDirectory", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\fifthDirectory");
+        NodeInterface node6 = NodeFactory.createDirectoryNode("sixthFactory", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\sixthDirectory");
+        NodeInterface node7 = NodeFactory.createDirectoryNode("seventhDirectory", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\Automatic\\AnotherOne\\seventhDirectory");
+        NodeInterface node8 = NodeFactory.createFileNode("firstFile", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\firstFile", 10);
+        NodeInterface node9 = NodeFactory.createFileNode("firstPDF", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\firstPDF", 312);
+        //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        /*
-         *  root
-         *    |-firstLayerTextFile
-         */
-        tree.addNode(firstLayerTextFile);
-        Assert.assertEquals(firstLayerTextFile, tree.getRoot().getChild(firstLayerTextFile.getPath()));
+        //second-Layer----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        NodeInterface node10 = NodeFactory.createDirectoryNode("first_first", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\firstDirectory\\firs_first");
+        NodeInterface node11 = NodeFactory.createFileNode("first_second", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\firstDirectory\\firs_second", 200);
+        NodeInterface node12 = NodeFactory.createDirectoryNode("first_third", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\firstDirectory\\firs_third");
+        NodeInterface node13 = NodeFactory.createFileNode("second_first", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\secondDirectory\\second_first", 789);
+        NodeInterface node14 = NodeFactory.createDirectoryNode("second_second", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\secondDirectory\\second_second");
+        NodeInterface node15 = NodeFactory.createDirectoryNode("second_third", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\secondDirectory\\second_third");
+        NodeInterface node16 = NodeFactory.createDirectoryNode("third_first", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\thirdDirectory\\third_first");
+        NodeInterface node17 = NodeFactory.createDirectoryNode("third_second", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\thirdDirectory\\third_second");
+        NodeInterface node18 = NodeFactory.createFileNode("third_third", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\thirdDirectory\\third_third", 7841);
+        NodeInterface node19 = NodeFactory.createDirectoryNode("fourth_first", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\fourthDirectory\\fourth_first");
+        NodeInterface node20 = NodeFactory.createDirectoryNode("fourth_second", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\fourthDirectory\\fourth_second");
+        NodeInterface node21 = NodeFactory.createFileNode("fourth_fourth", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\fourthDirectory\\fourth_third", 7878);
+        NodeInterface node22 = NodeFactory.createFileNode("fifth_first", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\fifthDirectory\\fifth_first", 7898);
+        NodeInterface node23 = NodeFactory.createDirectoryNode("fifth_second", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\fifthDirectory\\fifth_second");
+        NodeInterface node24 = NodeFactory.createDirectoryNode("fifth_third", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\fifthDirectory\\fifth_third");
+        NodeInterface node25 = NodeFactory.createDirectoryNode("sixth_first", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\sixthDirectory\\sixth_first");
+        NodeInterface node26 = NodeFactory.createDirectoryNode("sixth_second", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\sixthDirectory\\sixth_second");
+        NodeInterface node27 = NodeFactory.createFileNode("sixth_third", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\sixthDirectory\\sixth_third", 6788);
+        NodeInterface node28 = NodeFactory.createDirectoryNode("seventh_first", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\Automatic\\seventh_first");
+        NodeInterface node29 = NodeFactory.createFileNode("seventh_second", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\Automatic\\seventh_second", 9787);
+        NodeInterface node30 = NodeFactory.createDirectoryNode("seventh_third", "C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\Automatic\\seventh_third");
+        //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        /*
-         *  root
-         *    |-firstLayerTextFile
-         *    |-firstLayerDirectory
-         */
-        tree.addNode(firstLayerDirectory);
-        Assert.assertEquals(firstLayerDirectory, tree.getRoot().getChild(firstLayerDirectory.getPath()));
+        //first-Layer-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        tree.addNode(node1);
+        tree.addNode(node2);
+        tree.addNode(node3);
+        tree.addNode(node4);
+        tree.addNode(node5);
+        tree.addNode(node6);
+        tree.addNode(node7);
+        tree.addNode(node8);
+        tree.addNode(node9);
+        //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        /*
-         *  root
-         *    |-firstLayerTextFile
-         *    |-firstLayerDirectory
-         *              |-secondLayerTextFile
-         */
-        tree.addNode(secondLayerTextFile);
-        Assert.assertEquals(secondLayerTextFile, firstLayerDirectory.getChild(secondLayerTextFile.getPath()));
+        //second-Layer----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        tree.addNode(node10);
+        tree.addNode(node11);
+        tree.addNode(node12);
+        tree.addNode(node13);
+        tree.addNode(node14);
+        tree.addNode(node15);
+        tree.addNode(node16);
+        tree.addNode(node17);
+        tree.addNode(node18);
+        tree.addNode(node19);
+        tree.addNode(node20);
+        tree.addNode(node21);
+        tree.addNode(node22);
+        tree.addNode(node23);
+        tree.addNode(node24);
+        tree.addNode(node25);
+        tree.addNode(node26);
+        tree.addNode(node27);
+        tree.addNode(node28);
+        tree.addNode(node29);
+        tree.addNode(node30);
+        //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        /*
-         *  root
-         *    |-firstLayerTextFile
-         *    |-firstLayerDirectory
-         *              |-secondLayerTextFile
-         *              |-secondLayerDirectory
-         */
-        tree.addNode(secondLayerDirectory);
-        Assert.assertEquals(secondLayerDirectory, firstLayerDirectory.getChild(secondLayerDirectory.getPath()));
+        //first-Layer-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        Assert.assertEquals(node1, tree.getRoot().getChild(node1.getPath()));
+        Assert.assertEquals(node2, tree.getRoot().getChild(node2.getPath()));
+        Assert.assertEquals(node3, tree.getRoot().getChild(node3.getPath()));
+        Assert.assertEquals(node4, tree.getRoot().getChild(node4.getPath()));
+        Assert.assertEquals(node5, tree.getRoot().getChild(node5.getPath()));
+        Assert.assertEquals(node6, tree.getRoot().getChild(node6.getPath()));
+        Assert.assertEquals(node8, tree.getRoot().getChild(node8.getPath()));
+        Assert.assertEquals(node9, tree.getRoot().getChild(node9.getPath()));
+        Assert.assertEquals("C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\Automatic", tree.getRoot().getChild("C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\Automatic").getPath());
+        Assert.assertEquals("C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\Automatic\\AnotherOne", tree.getRoot().getChild("C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\Automatic").getChild("C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\Automatic\\AnotherOne").getPath());
+        Assert.assertEquals(node7, tree.getRoot().getChild("C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\Automatic").getChild("C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\Automatic\\AnotherOne").getChild(node7.getPath()));
+        //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        tree.addNode(thirdLayerTextFile);
+        //second-Layer----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+        Assert.assertEquals(node10, tree.getRoot().getChild(node1.getPath()).getChild(node10.getPath()));
+        Assert.assertEquals(node11, tree.getRoot().getChild(node1.getPath()).getChild(node11.getPath()));
+        Assert.assertEquals(node12, tree.getRoot().getChild(node1.getPath()).getChild(node12.getPath()));
 
-        Assert.assertEquals(firstLayerDirectory, tree.getNode(firstLayerDirectory.getPath()));
-        Assert.assertEquals(firstLayerTextFile, tree.getNode(firstLayerTextFile.getPath()));
-        Assert.assertEquals(secondLayerDirectory, tree.getNode(secondLayerDirectory.getPath()));
-        Assert.assertEquals(secondLayerTextFile, tree.getNode(secondLayerTextFile.getPath()));
-        Assert.assertEquals(thirdLayerTextFile, tree.getNode(thirdLayerTextFile.getPath()));
+        Assert.assertEquals(node13, tree.getRoot().getChild(node2.getPath()).getChild(node13.getPath()));
+        Assert.assertEquals(node14, tree.getRoot().getChild(node2.getPath()).getChild(node14.getPath()));
+        Assert.assertEquals(node15, tree.getRoot().getChild(node2.getPath()).getChild(node15.getPath()));
 
-        tree.removeDirectoryOnly(firstLayerDirectory);
+        Assert.assertEquals(node16, tree.getRoot().getChild(node3.getPath()).getChild(node16.getPath()));
+        Assert.assertEquals(node17, tree.getRoot().getChild(node3.getPath()).getChild(node17.getPath()));
+        Assert.assertEquals(node18, tree.getRoot().getChild(node3.getPath()).getChild(node18.getPath()));
 
-        //clear the tree
-        tree.clear();
-        tree.addNode(thirdLayerTextFile);
+        Assert.assertEquals(node19, tree.getRoot().getChild(node4.getPath()).getChild(node19.getPath()));
+        Assert.assertEquals(node20, tree.getRoot().getChild(node4.getPath()).getChild(node20.getPath()));
+        Assert.assertEquals(node21, tree.getRoot().getChild(node4.getPath()).getChild(node21.getPath()));
 
-        tree.addNode(secondLayerDirectory);
-//        /*
-//         *  root
-//         *    |-firstLayerDirectory <-- this folder is not inserted yes, so it has to be auto generated
-//         *              |-secondLayerTextFile
-//         */
-//        tree.addNode(secondLayerTextFile);
-//        Assert.assertEquals("C:\\Users\\Cedric\\Documents\\BaseDirectory\\testDirectory", tree.getRoot().getChild("C:\\Users\\Cedric\\Documents\\BaseDirectory\\testDirectory").getPath());
-//        Assert.assertEquals(secondLayerTextFile, tree.getRoot().getChild("C:\\Users\\Cedric\\Documents\\BaseDirectory\\testDirectory").getChild(secondLayerTextFile.getKey()));
-//
-//        /*
-//         *  root
-//         *    |-firstLayerDirectory
-//         *              |-secondLayerTextFile
-//         *              |-secondLayerDirectory
-//         */
-//        tree.addNode(secondLayerDirectory);
-//        Assert.assertEquals(secondLayerDirectory, tree.getRoot().getChild(secondLayerDirectory.getKey()));
-//
-//        /*
-//         *  root
-//         *    |-firstLayerDirectory <- gets ignored
-//         *              |-secondLayerTextFile
-//         *              |-secondLayerDirectory
-//         */
-//        tree.addNode(firstLayerDirectory);
-//        Assert.assertEquals(firstLayerDirectory, tree.getRoot().getChild(firstLayerDirectory.getKey()));
-//        Assert.assertEquals(1, tree.getRoot().getChildren().size());
-//        Assert.assertEquals(secondLayerTextFile, firstLayerDirectory.getChild(secondLayerTextFile.getKey()));
-//        Assert.assertEquals(secondLayerDirectory, firstLayerDirectory.getChild(secondLayerDirectory.getKey()));
+        Assert.assertEquals(node22, tree.getRoot().getChild(node5.getPath()).getChild(node22.getPath()));
+        Assert.assertEquals(node23, tree.getRoot().getChild(node5.getPath()).getChild(node23.getPath()));
+        Assert.assertEquals(node24, tree.getRoot().getChild(node5.getPath()).getChild(node24.getPath()));
+
+        Assert.assertEquals(node25, tree.getRoot().getChild(node6.getPath()).getChild(node25.getPath()));
+        Assert.assertEquals(node26, tree.getRoot().getChild(node6.getPath()).getChild(node26.getPath()));
+        Assert.assertEquals(node27, tree.getRoot().getChild(node6.getPath()).getChild(node27.getPath()));
+
+        Assert.assertEquals(node28, tree.getRoot().getChild("C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\Automatic").getChild(node28.getPath()));
+        Assert.assertEquals(node29, tree.getRoot().getChild("C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\Automatic").getChild(node29.getPath()));
+        Assert.assertEquals(node30, tree.getRoot().getChild("C:\\Users\\Darth-Vader\\Documents\\Fileserver\\root\\Automatic").getChild(node30.getPath()));
+        //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     }
 
     @Test
