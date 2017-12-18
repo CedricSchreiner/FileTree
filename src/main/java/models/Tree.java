@@ -20,7 +20,7 @@ public class Tree implements TreeInterface {
     private boolean gva_nodeNotFoundExceptionStatus;
 
     public Tree() {
-        this.gob_root = NodeFactory.createFileNode(GC_ROOT_NAME, GC_ROOT_PATH, 0);
+        this.gob_root = NodeFactory.createDirectoryNode(GC_ROOT_NAME, GC_ROOT_PATH, 0);
         this.gva_nodeNotFoundExceptionStatus = true;
     }
 
@@ -268,6 +268,8 @@ public class Tree implements TreeInterface {
     @Override
     public TreeDifference compareTrees(TreeInterface iob_tree) {
         //---------------------------Variables-----------------------------
+        boolean lva_treeExceptionStatus = iob_tree.isExceptionActive();
+        boolean lva_tmpExceptionStatus = this.gva_nodeNotFoundExceptionStatus;
         Collection<NodeInterface> lco_thisTreeCollection = this.getAll();
         Collection<NodeInterface> lco_treeCollection = iob_tree.getAll();
         Collection<NodeInterface> lco_nodesToUpdate = new ArrayList<>();
@@ -276,6 +278,9 @@ public class Tree implements TreeInterface {
         NodeInterface lob_treeNode;
         TreeDifference rob_treeDifference = new TreeDifference();
         //-----------------------------------------------------------------
+
+        iob_tree.setNodeNotFoundExceptionStatus(false);
+        this.gva_nodeNotFoundExceptionStatus = false;
 
         for (NodeInterface lob_collectionNode : lco_thisTreeCollection) {
             lob_treeNode = iob_tree.getNode(lob_collectionNode.getPath());
@@ -293,6 +298,9 @@ public class Tree implements TreeInterface {
         rob_treeDifference.setNodesToDelete(lco_nodesToDelete);
         rob_treeDifference.setNodesToInsert(lco_nodesToInsert);
 
+        iob_tree.setNodeNotFoundExceptionStatus(lva_treeExceptionStatus);
+        this.gva_nodeNotFoundExceptionStatus = lva_tmpExceptionStatus;
+
         return rob_treeDifference;
     }
 
@@ -306,17 +314,21 @@ public class Tree implements TreeInterface {
         int lva_loopCounter;
         //------------------------------------------------------------------------------------------------------
 
+        lar_parentNodePath = convertPathToArray(iob_parent.getPath());
+
         //loop over all children of the current parent node
         for (NodeInterface lob_childNode : iob_parent.getChildren()) {
             if (lob_childNode.isDirectory()) {
                 lar_childNodePath = convertPathToArray(lob_childNode.getPath());
                 if (lar_nodeToInsertPath[depth].equals(lar_childNodePath[depth])) {
-                    return addNode(lob_childNode, iob_nodeToInsert, ++depth);
+                    if (lar_nodeToInsertPath.length >= (depth + 1)) {
+                        if (lar_nodeToInsertPath[depth + 1].equals(lar_childNodePath[depth + 1])) {
+                            return addNode(lob_childNode, iob_nodeToInsert, ++depth);
+                        }
+                    }
                 }
             }
         }
-
-        lar_parentNodePath = convertPathToArray(iob_parent.getPath());
 
         //the parent directory of the file that we want to insert does not exist yet
         if (lar_nodeToInsertPath.length > (lar_parentNodePath.length + 1)) {
@@ -335,6 +347,10 @@ public class Tree implements TreeInterface {
             //add the new directory as child to the current node
             iob_parent.addChild(lob_newDirectory);
             return addNode(lob_newDirectory, iob_nodeToInsert, ++depth);
+        }
+
+        if (!lar_parentNodePath[depth].equals(lar_nodeToInsertPath[depth])) {
+            return iob_parent.getParent();
         }
 
         return iob_parent;
@@ -370,8 +386,17 @@ public class Tree implements TreeInterface {
 
         for (NodeInterface lob_childNode : iob_parent.getChildren()) {
             lar_childPath = convertPathToArray(lob_childNode.getPath());
-            if (lar_childPath[depth + 1].equals(lar_searchPath[depth + 1])) {
-                return searchNode(lob_childNode, iva_path, ++depth);
+//            if (lar_childPath[depth].equals(lar_searchPath[depth]) &&
+//                lar_searchPath.length > (depth + 1) &&
+//                lar_childPath[depth + 1].equals(lar_searchPath[depth + 1])) {
+//                return searchNode(lob_childNode, iva_path, ++depth);
+//            }
+            if (lar_searchPath[depth].equals(lar_childPath[depth])) {
+                if (lar_searchPath.length >= (depth + 1)) {
+                    if (lar_searchPath[depth + 1].equals(lar_childPath[depth + 1])) {
+                        return searchNode(lob_childNode, iva_path, ++depth);
+                    }
+                }
             }
         }
 
@@ -379,7 +404,7 @@ public class Tree implements TreeInterface {
     }
 
     private Collection<NodeInterface> getAllFiles(NodeInterface iob_node, Collection<NodeInterface> ico_files) {
-        if (!iob_node.isDirectory() && iob_node != this.gob_root) {
+        if (!iob_node.isDirectory()) {
             ico_files.add(iob_node);
             return ico_files;
         }
@@ -392,7 +417,7 @@ public class Tree implements TreeInterface {
     }
 
     private Collection<NodeInterface> getAllDirectories(NodeInterface iob_node, Collection<NodeInterface> ico_directories) {
-        if (iob_node.isDirectory()) {
+        if (iob_node.isDirectory() && iob_node != this.gob_root) {
             ico_directories.add(iob_node);
         }
 
